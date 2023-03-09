@@ -2,4 +2,6 @@
     <string name="app_name">GitHopper</string>
     <string name="search">Search</string>
     <string name="search_hint">Masukkan kata</string>
+    <string name="followers_tab_text">Followers</string>
+    <string name="following_tab_text">Following</string>
 </resources>
