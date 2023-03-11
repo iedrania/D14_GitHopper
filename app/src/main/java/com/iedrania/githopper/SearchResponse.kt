@@ -30,6 +30,4 @@ data class User (
     val following: Long?
 )
 
-typealias Followers = List<User>
-
-typealias Following = List<User>
+typealias ListUser = List<User>

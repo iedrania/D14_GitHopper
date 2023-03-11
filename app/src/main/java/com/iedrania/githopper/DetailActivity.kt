@@ -39,7 +39,7 @@ class DetailActivity : AppCompatActivity() {
         val username = intent.getStringExtra(EXTRA_USERNAME)
         getUserDetails(username!!)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, username)
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
