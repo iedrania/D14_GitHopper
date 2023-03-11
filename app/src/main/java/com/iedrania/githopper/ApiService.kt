@@ -7,5 +7,20 @@ interface ApiService {
     @GET("search/users")
     fun getUsers(
         @Query("q") username: String
-    ): Call<GitHubResponse>
+    ): Call<SearchResponse>
+
+    @GET("users/{username}")
+    fun getUser(
+        @Path("username") username: String
+    ): Call<User>
+
+    @GET("users/{username}/followers")
+    fun getFollowers(
+        @Path("username") username: String
+    ): Call<Followers>
+
+    @GET("users/{username}/following")
+    fun getFollowing(
+        @Path("username") username: String
+    ): Call<Following>
 }

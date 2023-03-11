@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iedrania.githopper.databinding.ActivityMainBinding
 import retrofit2.Call
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
-        private const val GITHUB_USERNAME = "johnnygoods"
+        private const val GITHUB_USERNAME = "johnnygoods" // TODO
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,55 +28,47 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
-
         val layoutManager = LinearLayoutManager(this)
         binding.rvUsers.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.rvUsers.addItemDecoration(itemDecoration)
         findUsers()
     }
 
     private fun findUsers() {
         showLoading(true)
         val client = ApiConfig.getApiService().getUsers(GITHUB_USERNAME)
-        client.enqueue(object : Callback<GitHubResponse> {
+        client.enqueue(object : Callback<SearchResponse> {
             override fun onResponse(
-                call: Call<GitHubResponse>,
-                response: Response<GitHubResponse>
+                call: Call<SearchResponse>,
+                response: Response<SearchResponse>
             ) {
                 showLoading(false)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        setUserData(responseBody.items)
+                        setUsersData(responseBody.items)
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-            override fun onFailure(call: Call<GitHubResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
-    private fun setUserData(gitHubUsers: List<UserItem>) {
-        val listUser = ArrayList<String>()
-        for (user in gitHubUsers) {
+
+    private fun setUsersData(users: List<User>) {
+        val listUser = ArrayList<User>()
+        for (user in users) {
             listUser.add(
-                """
-                ${user.login}
-                - ${user.login}
-                """.trimIndent() // TODO: text and image, empty page
+                User(user.login, user.avatarURL, user.name, user.followers, user.following)
             )
-//            Glide.with(this@MainActivity)
-//                .load("https://avatars.githubusercontent.com/u/${user.id}?v=4")
-//                .into(binding.ivPicture)
         }
         val adapter = UserAdapter(listUser)
         binding.rvUsers.adapter = adapter
     }
+
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
