@@ -16,16 +16,15 @@ class MainViewModel : ViewModel() {
 
     companion object {
         private const val TAG = "MainViewModel"
-        private const val GITHUB_USERNAME = "johnnygoods" // TODO
     }
 
     init {
-        findUsers()
+        findUsers("")
     }
 
-    private fun findUsers() {
+    fun findUsers(username: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getUsers(GITHUB_USERNAME)
+        val client = ApiConfig.getApiService().getUsers(username)
         client.enqueue(object : Callback<SearchResponse> {
             override fun onResponse(
                 call: Call<SearchResponse>,

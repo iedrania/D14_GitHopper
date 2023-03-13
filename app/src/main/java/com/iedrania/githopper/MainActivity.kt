@@ -14,6 +14,7 @@ import com.iedrania.githopper.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mainViewModel = ViewModelProvider(
+        mainViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
         )[MainViewModel::class.java]
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                // TODO search
+                p0?.let { mainViewModel.findUsers(it) }
                 searchView.clearFocus()
                 return true
             }
