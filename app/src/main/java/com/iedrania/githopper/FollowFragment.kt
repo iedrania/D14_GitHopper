@@ -12,6 +12,9 @@ import com.iedrania.githopper.databinding.FragmentFollowBinding
 class FollowFragment : Fragment() {
 
     private lateinit var binding: FragmentFollowBinding
+    private lateinit var viewModel: ViewModel
+    private lateinit var username: String
+    private var position: Int = 0
 
     companion object {
         const val ARG_POSITION = "position"
@@ -31,11 +34,10 @@ class FollowFragment : Fragment() {
 
         binding.rvFollow.layoutManager = LinearLayoutManager(requireActivity())
 
-        val position = arguments?.getInt(ARG_POSITION)!!
-        val username = arguments?.getString(ARG_USERNAME)!!
+        position = arguments?.getInt(ARG_POSITION)!!
+        username = arguments?.getString(ARG_USERNAME)!!
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
-        viewModel.findFollow(username, position)
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
         when (position) {
             0 -> {
                 viewModel.listFollowers.observe(viewLifecycleOwner) { listUser ->
@@ -66,5 +68,10 @@ class FollowFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.findFollow(username, position)
     }
 }
