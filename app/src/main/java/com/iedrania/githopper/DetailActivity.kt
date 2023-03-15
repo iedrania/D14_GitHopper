@@ -1,25 +1,21 @@
 package com.iedrania.githopper
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.iedrania.githopper.databinding.ActivityDetailBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
 
     companion object {
-        private const val TAG = "DetailActivity"
         const val EXTRA_USERNAME = "extra_username"
 
         @StringRes
@@ -36,10 +32,18 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val username = intent.getStringExtra(EXTRA_USERNAME)
-        getUserDetails(username!!)
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
+        viewModel.user.observe(this) { user ->
+            setUserDetails(user)
+        }
+        viewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+        val username = intent.getStringExtra(EXTRA_USERNAME)!!
+        viewModel.getUserDetail(username)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, username)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        sectionsPagerAdapter.username = username
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
@@ -48,32 +52,7 @@ class DetailActivity : AppCompatActivity() {
         }.attach()
     }
 
-    private fun getUserDetails(username: String) {
-        showLoading(true)
-        val client = ApiConfig.getApiService().getUser(username)
-        client.enqueue(object : Callback<User> {
-            override fun onResponse(
-                call: Call<User>,
-                response: Response<User>
-            ) {
-                showLoading(false)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        setUserDetails(responseBody)
-                    }
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                showLoading(false)
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
-    }
-
-    private fun setUserDetails(user: User) {
+    private fun setUserDetails(user: UserResponse) {
         binding.tvDetailName.text = user.name
         binding.tvDetailUsername.text = user.login
         "${user.followers} Followers • ${user.following} Following".also { binding.tvDetailStats.text = it }
@@ -84,11 +63,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onSupportNavigateUp(): Boolean {

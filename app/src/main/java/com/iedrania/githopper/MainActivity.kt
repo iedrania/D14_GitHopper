@@ -14,39 +14,32 @@ import com.iedrania.githopper.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var viewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        )[MainViewModel::class.java]
+        binding.rvUsers.layoutManager = LinearLayoutManager(this)
 
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvUsers.layoutManager = layoutManager
-
-        mainViewModel.listUser.observe(this) { listUser ->
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
+        viewModel.listUser.observe(this) { listUser ->
             setUsersData(listUser)
         }
-        mainViewModel.isLoading.observe(this) {
+        viewModel.isLoading.observe(this) {
             showLoading(it)
         }
     }
 
-    private fun setUsersData(users: List<User>) {
-        val listUser = ArrayList<User>()
+    private fun setUsersData(users: List<UserResponse>) {
+        val listUser = ArrayList<UserResponse>()
         for (user in users) {
             listUser.add(
-                User(user.login, user.avatarURL, user.name, user.followers, user.following)
+                UserResponse(user.login, user.avatarURL, user.name, user.followers, user.following)
             )
         }
-        val adapter = UserAdapter(listUser)
-        binding.rvUsers.adapter = adapter
+        binding.rvUsers.adapter = UserAdapter(listUser)
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -64,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                p0?.let { mainViewModel.findUsers(it) }
+                p0?.let { viewModel.findUsers(it) }
                 searchView.clearFocus()
                 return true
             }

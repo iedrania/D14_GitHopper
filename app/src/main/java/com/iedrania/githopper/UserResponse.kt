@@ -2,20 +2,9 @@ package com.iedrania.githopper
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchResponse (
-    @field:SerializedName("total_count")
-    val totalCount: Long,
-
-    @field:SerializedName("incomplete_results")
-    val incompleteResults: Boolean,
-
-    @field:SerializedName("items")
-    val items: List<User>
-)
-
-data class User (
+data class UserResponse (
     @field:SerializedName("login")
-    val login: String, // TODO user doesn't exist
+    val login: String,
 
     @field:SerializedName("avatar_url")
     val avatarURL: String?, // TODO nullable
@@ -29,5 +18,3 @@ data class User (
     @field:SerializedName("following")
     val following: Long?
 )
-
-typealias ListUser = List<User>
