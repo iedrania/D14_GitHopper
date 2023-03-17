@@ -14,6 +14,15 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
+    <TextView
+        android:id="@+id/searchHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/no_users"
+        android:layout_gravity="center"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFollow"
         android:layout_width="match_parent"

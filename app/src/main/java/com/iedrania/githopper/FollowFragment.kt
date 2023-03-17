@@ -62,11 +62,17 @@ class FollowFragment : Fragment() {
                 UserResponse(user.login, user.avatarURL, user.name, user.followers, user.following)
             )
         }
-        val adapter = UserAdapter(listUser)
-        binding.rvFollow.adapter = adapter
+        if (listUser.isEmpty()) {
+            binding.searchHint.text = getString(R.string.no_users)
+            binding.rvFollow.adapter = null
+        } else {
+            binding.searchHint.visibility = View.GONE
+            binding.rvFollow.adapter = UserAdapter(listUser)
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
+        binding.searchHint.visibility = if (isLoading) View.GONE else View.VISIBLE
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
