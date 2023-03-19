@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.rvUsers.layoutManager = LinearLayoutManager(this)
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
+        viewModel =
+            ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
         viewModel.listUser.observe(this) { listUser ->
             setUsersData(listUser)
         }
