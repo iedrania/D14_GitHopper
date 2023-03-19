@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        android:elevation="3dp" />
 
     <TextView
         android:id="@+id/searchHint"

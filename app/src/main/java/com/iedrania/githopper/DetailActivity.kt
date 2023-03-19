@@ -53,13 +53,28 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setUserDetails(user: UserResponse) {
-        binding.tvDetailName.text = user.name
+        if (user.name == null) {
+            binding.tvDetailName.visibility = View.GONE
+            binding.space2.visibility = View.GONE
+        } else {
+            binding.tvDetailName.text = user.name
+        }
+
         binding.tvDetailUsername.text = user.login
-        "${user.followers} Followers • ${user.following} Following".also { binding.tvDetailStats.text = it }
-        Glide.with(this@DetailActivity)
-            .load(user.avatarURL)
-            .into(binding.imgDetailPhoto)
-        binding.imgDetailPhoto.contentDescription = "${user.name}'s photo"
+
+        when (user.followers!!.toInt()) {
+            1 -> "${user.followers} Follower · ${user.following} Following".also { binding.tvDetailStats.text = it }
+            else -> "${user.followers} Followers · ${user.following} Following".also { binding.tvDetailStats.text = it }
+        }
+
+        if (user.avatarURL == null) {
+            binding.imgDetailPhoto.visibility = View.GONE
+        } else {
+            Glide.with(this@DetailActivity)
+                .load(user.avatarURL)
+                .into(binding.imgDetailPhoto)
+            binding.imgDetailPhoto.contentDescription = "${user.name}'s photo"
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
