@@ -23,8 +23,7 @@ class FollowFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentFollowBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -38,7 +37,8 @@ class FollowFragment : Fragment() {
         position = arguments?.getInt(ARG_POSITION)!!
         username = arguments?.getString(ARG_USERNAME)!!
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
+        viewModel =
+            ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
         when (position) {
             0 -> {
                 viewModel.listFollowers.observe(viewLifecycleOwner) { listUser ->
@@ -82,8 +82,16 @@ class FollowFragment : Fragment() {
 
     private fun showError(isError: Boolean) {
         when (position) {
-            0 -> if (isError) Toast.makeText(requireActivity(), "Error displaying followers list. Please try again later.", Toast.LENGTH_LONG).show()
-            1 -> if (isError) Toast.makeText(requireActivity(), "Error displaying following list. Please try again later.", Toast.LENGTH_LONG).show()
+            0 -> if (isError) Toast.makeText(
+                requireActivity(),
+                "Error displaying followers list. Please try again later.",
+                Toast.LENGTH_LONG
+            ).show()
+            1 -> if (isError) Toast.makeText(
+                requireActivity(),
+                "Error displaying following list. Please try again later.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

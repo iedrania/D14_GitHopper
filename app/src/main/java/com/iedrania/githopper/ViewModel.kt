@@ -32,8 +32,7 @@ class ViewModel : ViewModel() {
         val client = ApiConfig.getApiService().getUsers(username)
         client.enqueue(object : Callback<GithubResponse> {
             override fun onResponse(
-                call: Call<GithubResponse>,
-                response: Response<GithubResponse>
+                call: Call<GithubResponse>, response: Response<GithubResponse>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -43,6 +42,7 @@ class ViewModel : ViewModel() {
                     _isError.value = true
                 }
             }
+
             override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
@@ -57,8 +57,7 @@ class ViewModel : ViewModel() {
         val client = ApiConfig.getApiService().getUser(username)
         client.enqueue(object : Callback<UserResponse> {
             override fun onResponse(
-                call: Call<UserResponse>,
-                response: Response<UserResponse>
+                call: Call<UserResponse>, response: Response<UserResponse>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -68,6 +67,7 @@ class ViewModel : ViewModel() {
                     _isError.value = true
                 }
             }
+
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
@@ -86,8 +86,7 @@ class ViewModel : ViewModel() {
         }
         client!!.enqueue(object : Callback<List<UserResponse>> {
             override fun onResponse(
-                call: Call<List<UserResponse>>,
-                response: Response<List<UserResponse>>
+                call: Call<List<UserResponse>>, response: Response<List<UserResponse>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -100,6 +99,7 @@ class ViewModel : ViewModel() {
                     _isError.value = true
                 }
             }
+
             override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
                 _isLoading.value = true
                 Log.e(TAG, "onFailure: ${t.message}")

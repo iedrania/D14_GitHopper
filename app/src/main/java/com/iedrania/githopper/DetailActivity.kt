@@ -21,8 +21,7 @@ class DetailActivity : AppCompatActivity() {
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
-            R.string.followers_tab_text,
-            R.string.following_tab_text
+            R.string.followers_tab_text, R.string.following_tab_text
         )
     }
 
@@ -33,7 +32,8 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
+        val viewModel =
+            ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
         viewModel.user.observe(this) { user ->
             setUserDetails(user)
         }
@@ -67,16 +67,18 @@ class DetailActivity : AppCompatActivity() {
         binding.tvDetailUsername.text = user.login
 
         when (user.followers!!.toInt()) {
-            1 -> "${user.followers} Follower · ${user.following} Following".also { binding.tvDetailStats.text = it }
-            else -> "${user.followers} Followers · ${user.following} Following".also { binding.tvDetailStats.text = it }
+            1 -> "${user.followers} Follower · ${user.following} Following".also {
+                binding.tvDetailStats.text = it
+            }
+            else -> "${user.followers} Followers · ${user.following} Following".also {
+                binding.tvDetailStats.text = it
+            }
         }
 
         if (user.avatarURL == null) {
             binding.imgDetailPhoto.visibility = View.GONE
         } else {
-            Glide.with(this@DetailActivity)
-                .load(user.avatarURL)
-                .into(binding.imgDetailPhoto)
+            Glide.with(this@DetailActivity).load(user.avatarURL).into(binding.imgDetailPhoto)
             binding.imgDetailPhoto.contentDescription = "${user.name}'s photo"
         }
     }
@@ -86,7 +88,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showError(isError: Boolean) {
-        if (isError) Toast.makeText(this, "Error displaying user details. Please try again later.", Toast.LENGTH_LONG).show()
+        if (isError) Toast.makeText(
+            this, "Error displaying user details. Please try again later.", Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onSupportNavigateUp(): Boolean {

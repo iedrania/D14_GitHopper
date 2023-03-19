@@ -58,7 +58,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showError(isError: Boolean) {
-        if (isError) Toast.makeText(this, "Error displaying search results. Please try again later.", Toast.LENGTH_LONG).show()
+        if (isError) Toast.makeText(
+            this, "Error displaying search results. Please try again later.", Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
