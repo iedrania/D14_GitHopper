@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,6 +54,9 @@ class FollowFragment : Fragment() {
         viewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
+        viewModel.isError.observe(viewLifecycleOwner) {
+            showError(it)
+        }
     }
 
     private fun setFollowData(users: List<UserResponse>) {
@@ -74,6 +78,13 @@ class FollowFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         binding.searchHint.visibility = if (isLoading) View.GONE else View.VISIBLE
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(isError: Boolean) {
+        when (position) {
+            0 -> if (isError) Toast.makeText(requireActivity(), "Error displaying followers list. Please try again later.", Toast.LENGTH_LONG).show()
+            1 -> if (isError) Toast.makeText(requireActivity(), "Error displaying following list. Please try again later.", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onResume() {

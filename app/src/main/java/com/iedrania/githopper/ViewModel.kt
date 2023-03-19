@@ -19,12 +19,15 @@ class ViewModel : ViewModel() {
     val listFollowing: LiveData<List<UserResponse>> = _listFollowing
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+    private val _isError = MutableLiveData<Boolean>()
+    val isError: LiveData<Boolean> = _isError
 
     companion object {
         private const val TAG = "ViewModel"
     }
 
     fun findUsers(username: String) {
+        _isError.value = false
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUsers(username)
         client.enqueue(object : Callback<GithubResponse> {
@@ -37,16 +40,19 @@ class ViewModel : ViewModel() {
                     _listUser.value = response.body()?.items
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
+                    _isError.value = true
                 }
             }
             override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
+                _isError.value = true
             }
         })
     }
 
     fun getUserDetail(username: String) {
+        _isError.value = false
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUser(username)
         client.enqueue(object : Callback<UserResponse> {
@@ -59,16 +65,19 @@ class ViewModel : ViewModel() {
                     _user.value = response.body()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
+                    _isError.value = true
                 }
             }
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
+                _isError.value = true
             }
         })
     }
 
     fun findFollow(username: String, position: Int) {
+        _isError.value = false
         _isLoading.value = true
         var client: Call<List<UserResponse>>? = null
         when (position) {
@@ -87,12 +96,14 @@ class ViewModel : ViewModel() {
                         1 -> _listFollowing.value = response.body()
                     }
                 } else {
-                    Log.e(TAG, "b onFailure: ${response.message()}")
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _isError.value = true
                 }
             }
             override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
                 _isLoading.value = true
-                Log.e(TAG, "a onFailure: ${t.message}")
+                Log.e(TAG, "onFailure: ${t.message}")
+                _isError.value = true
             }
         })
     }

@@ -2,6 +2,7 @@ package com.iedrania.githopper
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -38,6 +39,9 @@ class DetailActivity : AppCompatActivity() {
         }
         viewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+        viewModel.isError.observe(this) {
+            showError(it)
         }
         val username = intent.getStringExtra(EXTRA_USERNAME)!!
         viewModel.getUserDetail(username)
@@ -79,6 +83,10 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(isError: Boolean) {
+        if (isError) Toast.makeText(this, "Error displaying user details. Please try again later.", Toast.LENGTH_LONG).show()
     }
 
     override fun onSupportNavigateUp(): Boolean {
