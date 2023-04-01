@@ -6,4 +6,10 @@
     <string name="following_tab_text">Following</string>
     <string name="search_empty">Click the Search button to start searching.</string>
     <string name="no_users">No users found.</string>
+    <string name="tabs">Tabs</string>
+    <string name="add">Add to favorites</string>
+    <string name="added">User added to favorites</string>
+    <string name="removed">User removed from favorites</string>
+    <string name="favorites">Favorites</string>
+    <string name="favorites_empty">No favorites to display.</string>
 </resources>

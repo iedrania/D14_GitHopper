@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iedrania.githopper.databinding.FragmentFollowBinding
+import com.iedrania.githopper.ui.detail.DetailViewModel
 
 class FollowFragment : Fragment() {
 
     private lateinit var binding: FragmentFollowBinding
-    private lateinit var viewModel: ViewModel
+    private lateinit var detailViewModel: DetailViewModel
     private lateinit var username: String
     private var position: Int = 0
 
@@ -37,24 +38,25 @@ class FollowFragment : Fragment() {
         position = arguments?.getInt(ARG_POSITION)!!
         username = arguments?.getString(ARG_USERNAME)!!
 
-        viewModel =
-            ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModel::class.java]
+        detailViewModel = ViewModelProvider(
+            requireActivity(), ViewModelProvider.NewInstanceFactory()
+        )[DetailViewModel::class.java]
         when (position) {
             0 -> {
-                viewModel.listFollowers.observe(viewLifecycleOwner) { listUser ->
+                detailViewModel.listFollowers.observe(viewLifecycleOwner) { listUser ->
                     setFollowData(listUser)
                 }
             }
             1 -> {
-                viewModel.listFollowing.observe(viewLifecycleOwner) { listUser ->
+                detailViewModel.listFollowing.observe(viewLifecycleOwner) { listUser ->
                     setFollowData(listUser)
                 }
             }
         }
-        viewModel.isLoading.observe(viewLifecycleOwner) {
+        detailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
-        viewModel.isError.observe(viewLifecycleOwner) {
+        detailViewModel.isError.observe(viewLifecycleOwner) {
             showError(it)
         }
     }
@@ -97,6 +99,6 @@ class FollowFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.findFollow(username, position)
+        detailViewModel.findFollow(username, position)
     }
 }

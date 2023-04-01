@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iedrania.githopper.databinding.ItemUserBinding
+import com.iedrania.githopper.ui.detail.DetailActivity
 
 class UserAdapter(private val listUser: List<UserResponse>) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
@@ -15,13 +16,14 @@ class UserAdapter(private val listUser: List<UserResponse>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val (login, avatar_url) = listUser[position]
-        holder.binding.tvItemUsername.text = login
-        Glide.with(holder.binding.imgItemPhoto).load(avatar_url).into(holder.binding.imgItemPhoto)
+        val user = listUser[position]
+        holder.binding.tvItemUsername.text = user.login
+        Glide.with(holder.binding.imgItemPhoto).load(user.avatarURL)
+            .into(holder.binding.imgItemPhoto)
 
         holder.itemView.setOnClickListener {
             val intentDetail = Intent(holder.itemView.context, DetailActivity::class.java)
-            intentDetail.putExtra("extra_username", login)
+            intentDetail.putExtra("extra_user", user)
             holder.itemView.context.startActivity(intentDetail)
         }
     }
