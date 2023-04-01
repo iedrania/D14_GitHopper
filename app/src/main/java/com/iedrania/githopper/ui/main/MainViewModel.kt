@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.iedrania.githopper.ApiConfig
-import com.iedrania.githopper.GithubResponse
-import com.iedrania.githopper.UserResponse
+import com.iedrania.githopper.database.remote.retrofit.ApiConfig
+import com.iedrania.githopper.database.remote.response.GithubResponse
+import com.iedrania.githopper.database.remote.response.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

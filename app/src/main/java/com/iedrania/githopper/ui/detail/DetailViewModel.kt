@@ -5,9 +5,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.iedrania.githopper.ApiConfig
-import com.iedrania.githopper.UserResponse
-import com.iedrania.githopper.database.FavoriteUser
+import com.iedrania.githopper.database.remote.retrofit.ApiConfig
+import com.iedrania.githopper.database.remote.response.UserResponse
+import com.iedrania.githopper.database.local.entity.FavoriteUser
 import com.iedrania.githopper.repository.FavoriteUserRepository
 import retrofit2.Call
 import retrofit2.Callback

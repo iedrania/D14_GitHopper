@@ -12,9 +12,8 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.iedrania.githopper.R
-import com.iedrania.githopper.SectionsPagerAdapter
-import com.iedrania.githopper.UserResponse
-import com.iedrania.githopper.database.FavoriteUser
+import com.iedrania.githopper.database.remote.response.UserResponse
+import com.iedrania.githopper.database.local.entity.FavoriteUser
 import com.iedrania.githopper.databinding.ActivityDetailBinding
 import com.iedrania.githopper.helper.ViewModelFactory
 

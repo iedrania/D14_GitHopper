@@ -2,7 +2,9 @@ package com.iedrania.githopper.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.iedrania.githopper.database.*
+import com.iedrania.githopper.database.local.entity.FavoriteUser
+import com.iedrania.githopper.database.local.room.FavoriteUserDao
+import com.iedrania.githopper.database.local.room.FavoriteUserRoomDatabase
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

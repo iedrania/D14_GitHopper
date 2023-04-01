@@ -1,7 +1,8 @@
-package com.iedrania.githopper.database
+package com.iedrania.githopper.database.local.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.iedrania.githopper.database.local.entity.FavoriteUser
 
 @Dao
 interface FavoriteUserDao {

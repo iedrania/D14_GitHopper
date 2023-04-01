@@ -1,7 +1,7 @@
 package com.iedrania.githopper.helper
 
 import androidx.recyclerview.widget.DiffUtil
-import com.iedrania.githopper.database.FavoriteUser
+import com.iedrania.githopper.database.local.entity.FavoriteUser
 
 class FavoriteUserDiffCallback(
     private val mOldFavoriteUserList: List<FavoriteUser>,

@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.iedrania.githopper.UserResponse
-import com.iedrania.githopper.database.FavoriteUser
+import com.iedrania.githopper.database.remote.response.UserResponse
+import com.iedrania.githopper.database.local.entity.FavoriteUser
 import com.iedrania.githopper.databinding.ItemUserBinding
 import com.iedrania.githopper.helper.FavoriteUserDiffCallback
 import com.iedrania.githopper.ui.detail.DetailActivity

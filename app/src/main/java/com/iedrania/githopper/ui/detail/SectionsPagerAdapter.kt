@@ -1,4 +1,4 @@
-package com.iedrania.githopper
+package com.iedrania.githopper.ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

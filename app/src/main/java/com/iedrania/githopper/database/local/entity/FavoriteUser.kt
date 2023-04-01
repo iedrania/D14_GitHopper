@@ -1,4 +1,4 @@
-package com.iedrania.githopper.database
+package com.iedrania.githopper.database.local.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

@@ -1,10 +1,11 @@
-package com.iedrania.githopper
+package com.iedrania.githopper.ui.main
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.iedrania.githopper.database.remote.response.UserResponse
 import com.iedrania.githopper.databinding.ItemUserBinding
 import com.iedrania.githopper.ui.detail.DetailActivity
 

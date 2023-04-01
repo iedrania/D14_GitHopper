@@ -1,5 +1,7 @@
-package com.iedrania.githopper
+package com.iedrania.githopper.database.remote.retrofit
 
+import com.iedrania.githopper.database.remote.response.GithubResponse
+import com.iedrania.githopper.database.remote.response.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
 

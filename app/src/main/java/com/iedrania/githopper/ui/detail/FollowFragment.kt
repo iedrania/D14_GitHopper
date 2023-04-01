@@ -1,4 +1,4 @@
-package com.iedrania.githopper
+package com.iedrania.githopper.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.iedrania.githopper.R
+import com.iedrania.githopper.database.remote.response.UserResponse
 import com.iedrania.githopper.databinding.FragmentFollowBinding
-import com.iedrania.githopper.ui.detail.DetailViewModel
+import com.iedrania.githopper.ui.main.UserAdapter
 
 class FollowFragment : Fragment() {
 

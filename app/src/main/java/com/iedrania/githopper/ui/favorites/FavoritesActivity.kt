@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.iedrania.githopper.UserResponse
+import com.iedrania.githopper.database.remote.response.UserResponse
 import com.iedrania.githopper.databinding.ActivityFavoritesBinding
 import com.iedrania.githopper.helper.ViewModelFactory
 

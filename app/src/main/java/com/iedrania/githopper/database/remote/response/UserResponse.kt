@@ -1,4 +1,4 @@
-package com.iedrania.githopper
+package com.iedrania.githopper.database.remote.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

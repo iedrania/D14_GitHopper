@@ -13,8 +13,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iedrania.githopper.R
-import com.iedrania.githopper.UserAdapter
-import com.iedrania.githopper.UserResponse
+import com.iedrania.githopper.database.remote.response.UserResponse
 import com.iedrania.githopper.databinding.ActivityMainBinding
 import com.iedrania.githopper.helper.ViewModelFactory
 import com.iedrania.githopper.ui.favorites.FavoritesActivity

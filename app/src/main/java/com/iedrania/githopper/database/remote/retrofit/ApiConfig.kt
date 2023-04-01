@@ -1,5 +1,6 @@
-package com.iedrania.githopper
+package com.iedrania.githopper.database.remote.retrofit
 
+import com.iedrania.githopper.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
