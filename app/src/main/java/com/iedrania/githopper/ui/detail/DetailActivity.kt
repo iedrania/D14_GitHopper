@@ -63,8 +63,10 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.getFavoriteUserByUsername(userObject.login).observe(this) { user ->
             if (user == null) {
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_border_24)
+                binding.fabFavorite.contentDescription = R.string.add.toString()
             } else {
                 binding.fabFavorite.setImageResource(R.drawable.baseline_favorite_24)
+                binding.fabFavorite.contentDescription = R.string.remove.toString()
             }
         }
 
