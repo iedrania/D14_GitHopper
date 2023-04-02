@@ -1,11 +1,15 @@
 package com.iedrania.githopper.ui.detail
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -16,6 +20,9 @@ import com.iedrania.githopper.database.remote.response.UserResponse
 import com.iedrania.githopper.database.local.entity.FavoriteUser
 import com.iedrania.githopper.databinding.ActivityDetailBinding
 import com.iedrania.githopper.helper.ViewModelFactory
+import com.iedrania.githopper.helper.SettingPreferences
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class DetailActivity : AppCompatActivity() {
 
@@ -39,8 +46,7 @@ class DetailActivity : AppCompatActivity() {
         val userObject = if (Build.VERSION.SDK_INT >= 33) {
             intent.getParcelableExtra(EXTRA_USER, UserResponse::class.java)
         } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra(EXTRA_USER)
+            @Suppress("DEPRECATION") intent.getParcelableExtra(EXTRA_USER)
         }
 
         detailViewModel = obtainViewModel(this@DetailActivity)
@@ -75,7 +81,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
+        val pref = SettingPreferences.getInstance(dataStore)
+        val factory = ViewModelFactory.getInstance(activity.application, pref)
         return ViewModelProvider(activity, factory)[DetailViewModel::class.java]
     }
 

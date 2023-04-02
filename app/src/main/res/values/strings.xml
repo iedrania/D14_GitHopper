@@ -2,14 +2,17 @@
     <string name="app_name">GitHopper</string>
     <string name="search">Search</string>
     <string name="search_hint">Search username…</string>
-    <string name="followers_tab_text">Followers</string>
-    <string name="following_tab_text">Following</string>
     <string name="search_empty">Click the Search button to start searching.</string>
     <string name="no_users">No users found.</string>
     <string name="tabs">Tabs</string>
+    <string name="followers_tab_text">Followers</string>
+    <string name="following_tab_text">Following</string>
+    <string name="favorites">Favorites</string>
     <string name="add">Add to favorites</string>
+    <string name="remove">Remove from favorites</string>
     <string name="added">User added to favorites</string>
     <string name="removed">User removed from favorites</string>
-    <string name="favorites">Favorites</string>
     <string name="favorites_empty">No favorites to display.</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="settings">Settings</string>
 </resources>

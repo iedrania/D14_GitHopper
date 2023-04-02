@@ -9,7 +9,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iedrania.githopper.R
@@ -17,6 +21,10 @@ import com.iedrania.githopper.database.remote.response.UserResponse
 import com.iedrania.githopper.databinding.ActivityMainBinding
 import com.iedrania.githopper.helper.ViewModelFactory
 import com.iedrania.githopper.ui.favorites.FavoritesActivity
+import com.iedrania.githopper.helper.SettingPreferences
+import com.iedrania.githopper.ui.settings.SettingsActivity
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,11 +47,20 @@ class MainActivity : AppCompatActivity() {
             showError(it)
         }
 
+        mainViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
         binding.rvUsers.layoutManager = LinearLayoutManager(this)
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
+        val pref = SettingPreferences.getInstance(dataStore)
+        val factory = ViewModelFactory.getInstance(activity.application, pref)
         return ViewModelProvider(activity, factory)[MainViewModel::class.java]
     }
 
@@ -101,6 +118,10 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.action_favorites -> {
                 val intent = Intent(this@MainActivity, FavoritesActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.action_settings -> {
+                val intent = Intent(this@MainActivity, SettingsActivity::class.java)
                 startActivity(intent)
             }
         }

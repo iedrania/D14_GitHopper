@@ -1,12 +1,19 @@
 package com.iedrania.githopper.ui.favorites
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iedrania.githopper.database.remote.response.UserResponse
 import com.iedrania.githopper.databinding.ActivityFavoritesBinding
 import com.iedrania.githopper.helper.ViewModelFactory
+import com.iedrania.githopper.helper.SettingPreferences
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class FavoritesActivity : AppCompatActivity() {
 
@@ -39,7 +46,8 @@ class FavoritesActivity : AppCompatActivity() {
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): FavoritesViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
+        val pref = SettingPreferences.getInstance(dataStore)
+        val factory = ViewModelFactory.getInstance(activity.application, pref)
         return ViewModelProvider(activity, factory)[FavoritesViewModel::class.java]
     }
 

@@ -4,14 +4,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.iedrania.githopper.database.remote.retrofit.ApiConfig
 import com.iedrania.githopper.database.remote.response.GithubResponse
 import com.iedrania.githopper.database.remote.response.UserResponse
+import com.iedrania.githopper.helper.SettingPreferences
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val pref: SettingPreferences) : ViewModel() {
     private val _listUser = MutableLiveData<List<UserResponse>>()
     val listUser: LiveData<List<UserResponse>> = _listUser
     private val _isLoading = MutableLiveData<Boolean>()
@@ -21,6 +23,10 @@ class MainViewModel : ViewModel() {
 
     companion object {
         private const val TAG = "MainViewModel"
+    }
+
+    fun getThemeSettings(): LiveData<Boolean> {
+        return pref.getThemeSetting().asLiveData()
     }
 
     fun findUsers(username: String) {
