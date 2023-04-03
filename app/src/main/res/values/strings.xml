@@ -12,7 +12,6 @@
     <string name="remove">Remove from favorites</string>
     <string name="added">User added to favorites</string>
     <string name="removed">User removed from favorites</string>
-    <string name="favorites_empty">No favorites to display.</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="settings">Settings</string>
     <string name="app_logo">App Logo</string>
