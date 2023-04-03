@@ -20,11 +20,6 @@ class FollowFragment : Fragment() {
     private lateinit var username: String
     private var position: Int = 0
 
-    companion object {
-        const val ARG_POSITION = "position"
-        const val ARG_USERNAME = "username"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -102,5 +97,10 @@ class FollowFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         detailViewModel.findFollow(username, position)
+    }
+
+    companion object {
+        const val ARG_POSITION = "position"
+        const val ARG_USERNAME = "username"
     }
 }

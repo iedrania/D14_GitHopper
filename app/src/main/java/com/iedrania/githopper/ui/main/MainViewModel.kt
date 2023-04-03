@@ -21,10 +21,6 @@ class MainViewModel(private val pref: SettingPreferences) : ViewModel() {
     private val _isError = MutableLiveData<Boolean>()
     val isError: LiveData<Boolean> = _isError
 
-    companion object {
-        private const val TAG = "MainViewModel"
-    }
-
     fun getThemeSettings(): LiveData<Boolean> {
         return pref.getThemeSetting().asLiveData()
     }
@@ -52,5 +48,9 @@ class MainViewModel(private val pref: SettingPreferences) : ViewModel() {
                 _isError.value = true
             }
         })
+    }
+
+    companion object {
+        private const val TAG = "MainViewModel"
     }
 }

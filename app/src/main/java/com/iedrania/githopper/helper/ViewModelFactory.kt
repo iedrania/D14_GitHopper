@@ -11,20 +11,6 @@ import com.iedrania.githopper.ui.settings.SettingsViewModel
 class ViewModelFactory private constructor(
     private val mApplication: Application, private val pref: SettingPreferences
 ) : ViewModelProvider.NewInstanceFactory() {
-    companion object {
-        @Volatile
-        private var INSTANCE: ViewModelFactory? = null
-
-        @JvmStatic
-        fun getInstance(application: Application, pref: SettingPreferences): ViewModelFactory {
-            if (INSTANCE == null) {
-                synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(application, pref)
-                }
-            }
-            return INSTANCE as ViewModelFactory
-        }
-    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -38,5 +24,20 @@ class ViewModelFactory private constructor(
             return SettingsViewModel(pref) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: ViewModelFactory? = null
+
+        @JvmStatic
+        fun getInstance(application: Application, pref: SettingPreferences): ViewModelFactory {
+            if (INSTANCE == null) {
+                synchronized(ViewModelFactory::class.java) {
+                    INSTANCE = ViewModelFactory(application, pref)
+                }
+            }
+            return INSTANCE as ViewModelFactory
+        }
     }
 }

@@ -29,15 +29,6 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var detailViewModel: DetailViewModel
 
-    companion object {
-        const val EXTRA_USER = "extra_user"
-
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.followers_tab_text, R.string.following_tab_text
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -146,5 +137,14 @@ class DetailActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
+    }
+
+    companion object {
+        const val EXTRA_USER = "extra_user"
+
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.followers_tab_text, R.string.following_tab_text
+        )
     }
 }

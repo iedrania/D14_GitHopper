@@ -16,6 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField("String", "KEY", '"token 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"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
